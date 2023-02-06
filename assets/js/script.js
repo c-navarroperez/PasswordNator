@@ -91,6 +91,26 @@ var upperCasedCharacters = [
 // Function to prompt user for password options
 function getPasswordOptions() {
 
+/// using prompt() request password length --> returns user input value as string
+
+  // Length of password : At least 10 characters but no more than 64.
+      
+  // validate that the user selected at least one character type
+  // else send user back to select again - call a password length function ???
+      
+/// using confirm() decide the use of character types --> returns a boolean value
+    
+  // Include Lowercase
+  // Include Uppercase
+  // Include Numeric
+  // Include Special characters ($@%&*, etc)
+
+  // validate that the user selected at least one character type
+  // else send user back to select again - call a character type function ???
+
+
+// return selected character & password length
+
 }
 
 // Function for getting a random element from an array
