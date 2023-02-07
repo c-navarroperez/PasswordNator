@@ -103,7 +103,7 @@ function getPasswordLength() {
     } 
     else { // else terminate process
       alert('Thank you for using Password Generator');
-      throw 'Password Generator exited by the user.'
+      throw 'Program exited by the user.'
     }
   }
 
@@ -138,7 +138,7 @@ function getCharacterTypes() {
     } 
     else { // else terminate process 
       alert('Thank you for using Password Generator');
-      throw 'Password Generator exited by the user.'
+      throw 'Program exited by the user.'
     }
   }
 
