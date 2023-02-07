@@ -88,9 +88,71 @@ var upperCasedCharacters = [
   'Z'
 ];
 
+
+function getPasswordLength() {
+  // using prompt() request password length --> returns user input value as string
+  // Length of password : At least 10 characters but no more than 64.
+  let passwordLength = prompt('Please enter the length of your password. (10 - 64 characters)');
+  // validate that the user selected a number within the range of accempatble lengths  
+  if (passwordLength < 10 || passwordLength > 64 || !passwordLength) {
+    let lengthTryAgain = confirm('Invalid Response. The password must be between 10 and 64 characters. \n\nPlease try again');
+    // else send user back to select again - call a password length function ???
+    if (lengthTryAgain) {
+      getPasswordLength();
+    } else {
+      alert('Thank you for using Password Generator');
+      return null;
+    }
+  }
+
+  return passwordLength;
+}
+
+function getCharacterTypes() {
+  var passwordArray = [];
+  // using confirm() decide the use of character types --> returns a boolean value
+  // Include Lowercase
+  let choiceLowerCased = confirm("Would you like your password to contain lowercase letters?"); 
+  if (choiceLowerCased) passwordArray = passwordArray.concat(lowerCasedCharacters);
+  // Include Uppercase
+  let choiceUpperCased = confirm("Would you like your password to contain UPPERCASE letters?");
+  if (choiceUpperCased) passwordArray = passwordArray.concat(upperCasedCharacters);
+  // Include Numeric
+  let choiceNumericChar = confirm("Would you like your password to contain numb3rs?");
+  if (choiceNumericChar) passwordArray = passwordArray.concat(numericCharacters);
+  // Include Special characters
+  let choiceSpecialChar = confirm("Would you like your password to contain $peci@l characters?");
+  if (choiceSpecialChar) passwordArray = passwordArray.concat(specialCharacters)
+  
+  // validate that the user selected at least one character type
+  if (!choiceLowerCased && !choiceUpperCased && !choiceNumericChar && !choiceSpecialChar) {
+    let charTypesTryAgain = confirm('Invalid Response. Please select at least one option. \n\nPlease try again');
+    // else send user back to select again - call a character type function ???
+    if (charTypesTryAgain) {
+      getCharacterTypes();
+    } else {
+      alert('Thank you for using Password Generator');
+      return null;
+    }
+  }
+
+  return passwordArray;
+}
+
 // Function to prompt user for password options
 function getPasswordOptions() {
 
+  let passwordLength = getPasswordLength();
+  if (!passwordLength) return;
+
+  let passwordCharacterArray = getCharacterTypes();
+  if (!passwordCharacterArray) return;
+
+  // return selected character & password length
+  return {
+    length: passwordLength, 
+    charArray: passwordCharacterArray
+  };
 }
 
 // Function for getting a random element from an array
@@ -100,6 +162,10 @@ function getRandom(arr) {
 
 // Function to generate password with user input
 function generatePassword() {
+  // call getPasswordOptions and store that return in a variable
+  let passwordOptions = getPasswordOptions();
+  console.log(passwordOptions.length);
+  console.log(passwordOptions.charArray);
 
 }
 
