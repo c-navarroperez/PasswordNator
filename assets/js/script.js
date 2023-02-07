@@ -90,18 +90,20 @@ var upperCasedCharacters = [
 
 
 function getPasswordLength() {
-  // using prompt() request password length --> returns user input value as string
-  // Length of password : At least 10 characters but no more than 64.
+  // Request password length 
   let passwordLength = prompt('Please enter the length of your password. (10 - 64 characters)');
-  // validate that the user selected a number within the range of accempatble lengths  
+
+  // Validate that the user selected a number within the range of accempatble lengths  
   if (passwordLength < 10 || passwordLength > 64 || !passwordLength) {
+    // Re-enter the lenght or exit the process
     let lengthTryAgain = confirm('Invalid Response. The password must be between 10 and 64 characters. \n\nPlease try again');
-    // else send user back to select again - call a password length function ???
     if (lengthTryAgain) {
+      // Re-call the password length prompt
       getPasswordLength();
-    } else {
+    } 
+    else { // else terminate process
       alert('Thank you for using Password Generator');
-      return null;
+      throw 'Program exited by the user.'
     }
   }
 
@@ -109,8 +111,10 @@ function getPasswordLength() {
 }
 
 function getCharacterTypes() {
+  // Array to contain a pool of possible characters to generate the passworf from
   var passwordArray = [];
-  // using confirm() decide the use of character types --> returns a boolean value
+
+  // Offer the choice of character types and include them to the pool of characters
   // Include Lowercase
   let choiceLowerCased = confirm("Would you like your password to contain lowercase letters?"); 
   if (choiceLowerCased) passwordArray = passwordArray.concat(lowerCasedCharacters);
@@ -124,15 +128,17 @@ function getCharacterTypes() {
   let choiceSpecialChar = confirm("Would you like your password to contain $peci@l characters?");
   if (choiceSpecialChar) passwordArray = passwordArray.concat(specialCharacters)
   
-  // validate that the user selected at least one character type
+  // Validate that the user selected at least one character type
   if (!choiceLowerCased && !choiceUpperCased && !choiceNumericChar && !choiceSpecialChar) {
+    // Choose a character option again or exit the process
     let charTypesTryAgain = confirm('Invalid Response. Please select at least one option. \n\nPlease try again');
-    // else send user back to select again - call a character type function ???
     if (charTypesTryAgain) {
+      // Re-call the password length prompt
       getCharacterTypes();
-    } else {
+    } 
+    else { // else terminate process 
       alert('Thank you for using Password Generator');
-      return null;
+      throw 'Program exited by the user.'
     }
   }
 
@@ -141,14 +147,10 @@ function getCharacterTypes() {
 
 // Function to prompt user for password options
 function getPasswordOptions() {
-
   let passwordLength = getPasswordLength();
-  if (!passwordLength) return;
-
   let passwordCharacterArray = getCharacterTypes();
-  if (!passwordCharacterArray) return;
 
-  // return selected character & password length
+  // Return character array & password length
   return {
     length: passwordLength, 
     charArray: passwordCharacterArray
@@ -157,16 +159,23 @@ function getPasswordOptions() {
 
 // Function for getting a random element from an array
 function getRandom(arr) {
+  let randomChar = arr[Math.floor(Math.random() * (arr.length))];
 
+  return randomChar;
 }
 
 // Function to generate password with user input
 function generatePassword() {
-  // call getPasswordOptions and store that return in a variable
   let passwordOptions = getPasswordOptions();
-  console.log(passwordOptions.length);
-  console.log(passwordOptions.charArray);
+  // Password container
+  let password = '';
+  // Append randomly selected characters from the array until reaching the chosen password length
+  for (let i = 0; i < passwordOptions.length; i++) {
+    password += getRandom(passwordOptions.charArray)
+  }
 
+  // Generated Password
+  return password;
 }
 
 // Get references to the #generate element
