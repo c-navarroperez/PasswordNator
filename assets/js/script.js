@@ -101,7 +101,7 @@ function getPasswordLength() {
       getPasswordLength();
     } else {
       alert('Thank you for using Password Generator');
-      return null;
+      throw 'Password Generator exited by the user.'
     }
   }
 
@@ -132,7 +132,7 @@ function getCharacterTypes() {
       getCharacterTypes();
     } else {
       alert('Thank you for using Password Generator');
-      return null;
+      throw 'Password Generator exited by the user.'
     }
   }
 
@@ -143,10 +143,7 @@ function getCharacterTypes() {
 function getPasswordOptions() {
 
   let passwordLength = getPasswordLength();
-  if (!passwordLength) return;
-
   let passwordCharacterArray = getCharacterTypes();
-  if (!passwordCharacterArray) return;
 
   // return selected character & password length
   return {
